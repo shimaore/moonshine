@@ -1,3 +1,8 @@
+MoonShine
+=========
+
+Some Zappa for the client.
+
 
     # Works as RequireJS module.
     moonshine = require './moonshine'

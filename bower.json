@@ -1,11 +1,11 @@
 {
   "name": "moonshine",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "main": "lib/moonshine.min.js",
   "authors": [
     "Stephane Alnet <stephane@shimaore.net>"
   ],
-  "license": "public domain",
-  "private": true,
+  "license": "Public Domain",
   "ignore": [
     "**/.*",
     "node_modules",
