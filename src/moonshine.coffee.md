@@ -19,8 +19,13 @@ Also my current pattern for HTML is:
 Allow for this to work in Node.js as well.
 
     if not define?
-      define = (f) ->
-        module.exports = f require
+      if module? and module.exports? and require? # Node.js
+        define = (f) ->
+          module.exports = f require
+      if window? and not require? # Regular client-side
+        define = (f) ->
+          require = -> # do nothing
+          window.moonshine = f require
 
 This should work in RequireJS.
 
@@ -77,6 +82,50 @@ form = @render 'example', {values}
         context.render = (name,values) ->
           views[name](values)
 
+        context.get = (obj) ->
+          for k,v of obj
+            route k, v
+
+        routes = []
+        route = (path,next) ->
+          # FIXME path-to-regex translation
+          routes.push
+            path: path
+            route: (params,query) ->
+              ctx =
+                render: context.render
+                params: params
+                query: query
+
+              next.apply ctx
+
         f.apply context
+
+        if window?.onhashchange?
+          window.onhashchange ->
+            # FIXME parse the hash into the hash-proper, and the query
+            hash = window.location.hash
+            query = {}
+
+            for route in routes
+              # String
+              if typeof route.path is string
+                if route.path is hash
+                  return route.route {}, query
+              # Regex
+              if route.path.exec?
+                if params = route.path.exec hash
+                  return route.route params, query
+              # Parsed string
+              if route.path.regex?
+                if result = route.path.regex.exec hash
+                  params = {}
+                  for k,n of route.path.map
+                    params[k] = result[n]
+                  return route.route params, query
+
+        else
+          # No hashonchange, need to monitor the hash
+          'Not implemented'
 
       return app
