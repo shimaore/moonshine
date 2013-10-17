@@ -13,18 +13,23 @@ module.exports = (grunt) ->
       compile:
         options:
           sourceMap: true
-        files:
-          'lib/moonshine.js': ['src/moonshine.coffee.md']
-          'lib/ccss.js': ['src/ccss.coffee']
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: 'src/',
+          src: ['*.coffee.md','*.coffee'],
+          dest: 'lib/',
+          ext: '.js'
+        }]
 
     # Build single include
     requirejs:
       compile:
         options:
-          name: 'moonshine'
+          name: '<%= pkg.name %>'
           baseUrl: 'lib/'
           mainConfigFile: 'app/config.js'
-          out: 'build/moonshine.min.js'
+          out: 'build/<%= pkg.name %>.min.js'
 
     clean:
       build: ['lib/', 'build/']
