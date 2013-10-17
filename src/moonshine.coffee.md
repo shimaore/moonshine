@@ -29,11 +29,11 @@ Allow for this to work in Node.js as well.
 
 This should work in RequireJS.
 
-    define (require) ->
+    define (require) =>
       coffeecup = require 'coffeecup'
       ccss = require 'ccss'
 
-      app = (f) ->
+      @moonshine = (f) ->
 
         helpers = {}
         views = {}
@@ -127,5 +127,3 @@ form = @render 'example', {values}
         else
           # No hashonchange, need to monitor the hash
           'Not implemented'
-
-      return app
