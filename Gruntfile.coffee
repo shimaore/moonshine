@@ -28,7 +28,7 @@ module.exports = (grunt) ->
 
     clean:
       build: ['lib/']
-      all: ['node_modules/', 'bower_components/']
+      all: ['lib/', 'node_modules/', 'bower_components/']
 
   grunt.loadNpmTasks 'grunt-bower-requirejs'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
