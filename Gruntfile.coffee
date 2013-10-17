@@ -2,9 +2,13 @@ module.exports = (grunt) ->
 
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
+
+    # Will include bower.json's packages into config.js
     bower:
       target:
         rjsConfig: 'app/config.js'
+
+    # Will compile CoffeeScript into Javascript
     coffee:
       compile:
         options:
@@ -12,29 +16,22 @@ module.exports = (grunt) ->
         files:
           'lib/moonshine.js': ['src/moonshine.coffee.md']
           'lib/ccss.js': ['src/ccss.coffee']
+
+    # Build single include
     requirejs:
       compile:
         options:
           name: 'moonshine'
           baseUrl: 'lib/'
           mainConfigFile: 'app/config.js'
-          out: 'lib/moonshine.optimized.js'
-    concat:
-      dist:
-        src: ['lib/ccss.js', 'lib/moonshine.js']
-        dest: 'build/<%= pkg.name %>.js'
-    uglify:
-      options:
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      build:
-        src: 'lib/<%= pkg.name %>.js'
-        dest: 'build/<%= pkg.name %>.min.js'
+          out: 'lib/moonshine.min.js'
+
+    clean:
+      build: ['lib/']
+      all: ['node_modules/', 'bower_components/']
 
   grunt.loadNpmTasks 'grunt-bower-requirejs'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
-  grunt.loadNpmTasks 'grunt-contrib-jshint'
-  grunt.loadNpmTasks 'grunt-contrib-nodeunit'
-  # grunt.loadNpmTasks 'grunt-contrib-concat'
-  # grunt.loadNpmTasks 'grunt-contrib-uglify'
-  grunt.registerTask 'default', 'bower coffee requirejs'.split ' '
+  grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.registerTask 'default', 'clean:build bower coffee requirejs'.split ' '
