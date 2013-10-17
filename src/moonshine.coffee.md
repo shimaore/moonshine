@@ -16,14 +16,22 @@ Also my current pattern for HTML is:
   content.find('.form-target').html form
   form.show()
 
+Allow for this to work in Node.js as well.
+
+    if not define?
+      define = (f) ->
+        module.exports = f require
+
+This should work in RequireJS.
 
     define (require) ->
       coffeecup = require 'coffeecup'
       ccss = require 'ccss'
 
-      @app = (f) ->
+      app = (f) ->
 
         helpers = {}
+        views = {}
         context = {app}
 
 Syntax
@@ -34,27 +42,41 @@ Syntax
   attrs.name = attrs.id
   input attrs
 
-      context.helper = (obj) ->
-        for k,v of obj
-          helpers[k] = v
+        context.helper = (obj) ->
+          for k,v of obj
+            helpers[k] = v
 
 @view example: ->
   html -> etc.
 
-      context.view = (obj) ->
-        for k,v of obj
-          views[k] = coffeecup.compile v, hardcode: helpers
+        context.view = (obj) ->
+          if typeof obj is 'string'
+            return obj
+          if typeof obj is 'function'
+            return coffeecup.render obj, hardcode: helpers
+          for k,v of obj
+            views[k] = coffeecup.compile v, hardcode: helpers
+
+@css example_css: ->
+  html
+
+        context.css = (obj) ->
+          if typeof obj is 'string'
+            return obj
+          if typeof obj is 'function'
+            return ccss.compile obj()
+          for k,v of obj
+            if typeof v is 'function'
+              views[k] = (values) ->
+                ccss.compile v.apply values
+            else
+              views[k] = -> v
 
 form = @render 'example', {values}
 
-      context.render = (name,values) ->
-        views[name](values)
+        context.render = (name,values) ->
+          views[name](values)
 
-@css example: ->
-  html
+        f.apply context
 
-      context.css = (obj) ->
-        for k,v of obj
-          views[k] = ccss.compile v
-
-      f.apply context
+      return app
