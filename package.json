@@ -10,9 +10,10 @@
     "grunt-contrib-uglify": "~0.2.4",
     "bower": "~1.2.7",
     "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-requirejs": "~0.4.1"
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0"
   },
   "scripts": {
-    "pretest": "coffee --join --output lib/ src/ccss.coffee src/moonshine.coffee.md"
+    "prepublish": "bower install && grunt"
   }
 }
