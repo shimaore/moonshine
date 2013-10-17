@@ -24,11 +24,11 @@ module.exports = (grunt) ->
           name: 'moonshine'
           baseUrl: 'lib/'
           mainConfigFile: 'app/config.js'
-          out: 'lib/moonshine.min.js'
+          out: 'build/moonshine.min.js'
 
     clean:
-      build: ['lib/']
-      all: ['lib/', 'node_modules/', 'bower_components/']
+      build: ['lib/', 'build/']
+      all: ['lib/', 'build/', 'node_modules/', 'bower_components/']
 
   grunt.loadNpmTasks 'grunt-bower-requirejs'
   grunt.loadNpmTasks 'grunt-contrib-coffee'

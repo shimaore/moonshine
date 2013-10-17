@@ -1,6 +1,3 @@
 bower_components/
 node_modules/
-lib/ccss.js
-lib/ccss.js.map
-lib/moonshine.js
-lib/moonshine.js.map
+lib/
