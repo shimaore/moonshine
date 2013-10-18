@@ -42,6 +42,7 @@ Syntax
       context.helper = (obj) ->
         for k,v of obj
           helpers[k] = v
+        return
 
 @view example: ->
   html -> etc.
@@ -53,6 +54,7 @@ Syntax
           return coffeecup.render obj, hardcode: helpers
         for k,v of obj
           views[k] = coffeecup.compile v, hardcode: helpers
+        return
 
 @css example_css: ->
   html
@@ -68,6 +70,7 @@ Syntax
               ccss.compile v.apply values
           else
             views[k] = -> v
+        return
 
 form = @render 'example', {values}
 
@@ -77,6 +80,7 @@ form = @render 'example', {values}
       context.get = (obj) ->
         for k,v of obj
           route k, v
+        return
 
       routes = []
       route = (path,next) ->
@@ -91,6 +95,8 @@ form = @render 'example', {values}
 
             next.apply ctx
 
+        return
+
       f.apply context
 
       handle_hash_change = ->
@@ -100,7 +106,7 @@ form = @render 'example', {values}
 
         for route in routes
           # String
-          if typeof route.path is string
+          if typeof route.path is 'string'
             if route.path is hash
               return route.route {}, query
           # Regex
@@ -114,6 +120,8 @@ form = @render 'example', {values}
               for k,n of route.path.map
                 params[k] = result[n]
               return route.route params, query
+
+        return
 
       if window?.onhashchange?
         window.onhashchange handle_hash_change
