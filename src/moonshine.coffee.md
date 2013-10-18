@@ -82,6 +82,9 @@ form = @render 'example', {values}
           route k, v
         return
 
+Route handler
+=============
+
       routes = []
       route = (path,next) ->
         # FIXME path-to-regex translation
@@ -92,6 +95,10 @@ form = @render 'example', {values}
               render: context.render
               params: params
               query: query
+              redirect: (hash) ->
+                window.location.hash = hash
+                return
+              post: handle_change # (fragment,query)
 
             next.apply ctx
 
@@ -100,22 +107,24 @@ form = @render 'example', {values}
       f.apply context
 
       handle_hash_change = ->
-        # FIXME parse the hash into the hash-proper, and the query
-        hash = window.location.hash
-        query = {}
+        url = purl()
+        fragment = url.fragment
+        query = url.param()
+        handle_change fragment, query
 
+      handle_change = (fragment,query) ->
         for route in routes
           # String
           if typeof route.path is 'string'
-            if route.path is hash
+            if route.path is fragment
               return route.route {}, query
           # Regex
           if route.path.exec?
-            if params = route.path.exec hash
+            if params = route.path.exec fragment
               return route.route params, query
           # Parsed string
           if route.path.regex?
-            if result = route.path.regex.exec hash
+            if result = route.path.regex.exec fragment
               params = {}
               for k,n of route.path.map
                 params[k] = result[n]
@@ -127,7 +136,13 @@ form = @render 'example', {values}
         window.onhashchange handle_hash_change
       else
         # No hashonchange, need to monitor the hash
-        'Not implemented'
+        last_hash = window.location.hash
+        monitorHash = ->
+          new_hash = window.location.hash
+          if new_hash isnt last_hash
+            do handle_hash_change
+          last_hash = new_hash
+        setInterval monitorHash, 250
 
       do handle_hash_change
       return context
