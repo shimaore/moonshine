@@ -57,7 +57,7 @@
 */
 (function() {
   this.moonshine = function(f) {
-    var context, handle_hash_change, helpers, route, routes, views;
+    var context, handle_change, handle_hash_change, helpers, last_hash, monitorHash, route, routes, views;
     helpers = {};
     views = {};
     context = {};
@@ -125,7 +125,11 @@
           ctx = {
             render: context.render,
             params: params,
-            query: query
+            query: query,
+            redirect: function(hash) {
+              window.location.hash = hash;
+            },
+            post: handle_change
           };
           return next.apply(ctx);
         }
@@ -133,23 +137,28 @@
     };
     f.apply(context);
     handle_hash_change = function() {
-      var hash, k, n, params, query, result, _i, _len, _ref;
-      hash = window.location.hash;
-      query = {};
+      var fragment, query, url;
+      url = purl();
+      fragment = url.fragment;
+      query = url.param();
+      return handle_change(fragment, query);
+    };
+    handle_change = function(fragment, query) {
+      var k, n, params, result, _i, _len, _ref;
       for (_i = 0, _len = routes.length; _i < _len; _i++) {
         route = routes[_i];
         if (typeof route.path === 'string') {
-          if (route.path === hash) {
+          if (route.path === fragment) {
             return route.route({}, query);
           }
         }
         if (route.path.exec != null) {
-          if (params = route.path.exec(hash)) {
+          if (params = route.path.exec(fragment)) {
             return route.route(params, query);
           }
         }
         if (route.path.regex != null) {
-          if (result = route.path.regex.exec(hash)) {
+          if (result = route.path.regex.exec(fragment)) {
             params = {};
             _ref = route.path.map;
             for (k in _ref) {
@@ -164,7 +173,16 @@
     if ((typeof window !== "undefined" && window !== null ? window.onhashchange : void 0) != null) {
       window.onhashchange(handle_hash_change);
     } else {
-      'Not implemented';
+      last_hash = window.location.hash;
+      monitorHash = function() {
+        var new_hash;
+        new_hash = window.location.hash;
+        if (new_hash !== last_hash) {
+          handle_hash_change();
+        }
+        return last_hash = new_hash;
+      };
+      setInterval(monitorHash, 250);
     }
     handle_hash_change();
     return context;
