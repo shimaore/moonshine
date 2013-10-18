@@ -126,9 +126,6 @@
             render: context.render,
             params: params,
             query: query,
-            redirect: function(hash) {
-              window.location.hash = hash;
-            },
             post: handle_change
           };
           return next.apply(ctx);
@@ -145,6 +142,12 @@
     };
     handle_change = function(fragment, query) {
       var k, n, params, result, _i, _len, _ref;
+      if (fragment == null) {
+        fragment = '';
+      }
+      if (query == null) {
+        query = {};
+      }
       for (_i = 0, _len = routes.length; _i < _len; _i++) {
         route = routes[_i];
         if (typeof route.path === 'string') {
