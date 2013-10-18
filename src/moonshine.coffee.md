@@ -95,9 +95,6 @@ Route handler
               render: context.render
               params: params
               query: query
-              redirect: (hash) ->
-                window.location.hash = hash
-                return
               post: handle_change # (fragment,query)
 
             next.apply ctx
@@ -112,7 +109,7 @@ Route handler
         query = url.param()
         handle_change fragment, query
 
-      handle_change = (fragment,query) ->
+      handle_change = (fragment = '',query = {}) ->
         for route in routes
           # String
           if typeof route.path is 'string'
