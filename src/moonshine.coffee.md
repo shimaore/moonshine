@@ -121,5 +121,5 @@ form = @render 'example', {values}
         # No hashonchange, need to monitor the hash
         'Not implemented'
 
-      do handle_hash_change()
+      do handle_hash_change
       return context
