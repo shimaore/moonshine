@@ -1,6 +1,6 @@
 {
   "name": "moonshine",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "build/moonshine.js",
   "authors": [
     "Stephane Alnet <stephane@shimaore.net>"

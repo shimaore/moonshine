@@ -135,7 +135,7 @@
     f.apply(context);
     handle_hash_change = function() {
       var fragment, query, url;
-      url = purl();
+      url = purl(window.location);
       fragment = url.fragment;
       query = url.param();
       return handle_change(fragment, query);
