@@ -104,7 +104,7 @@ Route handler
       f.apply context
 
       handle_hash_change = ->
-        url = purl()
+        url = purl(window.location)
         fragment = url.fragment
         query = url.param()
         handle_change fragment, query
