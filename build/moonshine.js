@@ -57,7 +57,7 @@
 */
 (function() {
   this.moonshine = function(f) {
-    var context, helpers, route, routes, views;
+    var context, handle_hash_change, helpers, route, routes, views;
     helpers = {};
     views = {};
     context = {};
@@ -140,39 +140,41 @@
       });
     };
     f.apply(context);
-    if ((typeof window !== "undefined" && window !== null ? window.onhashchange : void 0) != null) {
-      window.onhashchange(function() {
-        var hash, k, n, params, query, result, _i, _len, _ref;
-        hash = window.location.hash;
-        query = {};
-        for (_i = 0, _len = routes.length; _i < _len; _i++) {
-          route = routes[_i];
-          if (typeof route.path === string) {
-            if (route.path === hash) {
-              return route.route({}, query);
-            }
-          }
-          if (route.path.exec != null) {
-            if (params = route.path.exec(hash)) {
-              return route.route(params, query);
-            }
-          }
-          if (route.path.regex != null) {
-            if (result = route.path.regex.exec(hash)) {
-              params = {};
-              _ref = route.path.map;
-              for (k in _ref) {
-                n = _ref[k];
-                params[k] = result[n];
-              }
-              return route.route(params, query);
-            }
+    handle_hash_change = function() {
+      var hash, k, n, params, query, result, _i, _len, _ref;
+      hash = window.location.hash;
+      query = {};
+      for (_i = 0, _len = routes.length; _i < _len; _i++) {
+        route = routes[_i];
+        if (typeof route.path === string) {
+          if (route.path === hash) {
+            return route.route({}, query);
           }
         }
-      });
+        if (route.path.exec != null) {
+          if (params = route.path.exec(hash)) {
+            return route.route(params, query);
+          }
+        }
+        if (route.path.regex != null) {
+          if (result = route.path.regex.exec(hash)) {
+            params = {};
+            _ref = route.path.map;
+            for (k in _ref) {
+              n = _ref[k];
+              params[k] = result[n];
+            }
+            return route.route(params, query);
+          }
+        }
+      }
+    };
+    if ((typeof window !== "undefined" && window !== null ? window.onhashchange : void 0) != null) {
+      window.onhashchange(handle_hash_change);
     } else {
       'Not implemented';
     }
+    handle_hash_change();
     return context;
   };
 
