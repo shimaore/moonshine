@@ -93,31 +93,33 @@ form = @render 'example', {values}
 
       f.apply context
 
+      handle_hash_change = ->
+        # FIXME parse the hash into the hash-proper, and the query
+        hash = window.location.hash
+        query = {}
+
+        for route in routes
+          # String
+          if typeof route.path is string
+            if route.path is hash
+              return route.route {}, query
+          # Regex
+          if route.path.exec?
+            if params = route.path.exec hash
+              return route.route params, query
+          # Parsed string
+          if route.path.regex?
+            if result = route.path.regex.exec hash
+              params = {}
+              for k,n of route.path.map
+                params[k] = result[n]
+              return route.route params, query
+
       if window?.onhashchange?
-        window.onhashchange ->
-          # FIXME parse the hash into the hash-proper, and the query
-          hash = window.location.hash
-          query = {}
-
-          for route in routes
-            # String
-            if typeof route.path is string
-              if route.path is hash
-                return route.route {}, query
-            # Regex
-            if route.path.exec?
-              if params = route.path.exec hash
-                return route.route params, query
-            # Parsed string
-            if route.path.regex?
-              if result = route.path.regex.exec hash
-                params = {}
-                for k,n of route.path.map
-                  params[k] = result[n]
-                return route.route params, query
-
+        window.onhashchange handle_hash_change
       else
         # No hashonchange, need to monitor the hash
         'Not implemented'
 
+      do handle_hash_change()
       return context
