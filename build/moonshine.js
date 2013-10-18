@@ -62,16 +62,14 @@
     views = {};
     context = {};
     context.helper = function(obj) {
-      var k, v, _results;
-      _results = [];
+      var k, v;
       for (k in obj) {
         v = obj[k];
-        _results.push(helpers[k] = v);
+        helpers[k] = v;
       }
-      return _results;
     };
     context.view = function(obj) {
-      var k, v, _results;
+      var k, v;
       if (typeof obj === 'string') {
         return obj;
       }
@@ -80,53 +78,47 @@
           hardcode: helpers
         });
       }
-      _results = [];
       for (k in obj) {
         v = obj[k];
-        _results.push(views[k] = coffeecup.compile(v, {
+        views[k] = coffeecup.compile(v, {
           hardcode: helpers
-        }));
+        });
       }
-      return _results;
     };
     context.css = function(obj) {
-      var k, v, _results;
+      var k, v;
       if (typeof obj === 'string') {
         return obj;
       }
       if (typeof obj === 'function') {
         return ccss.compile(obj());
       }
-      _results = [];
       for (k in obj) {
         v = obj[k];
         if (typeof v === 'function') {
-          _results.push(views[k] = function(values) {
+          views[k] = function(values) {
             return ccss.compile(v.apply(values));
-          });
+          };
         } else {
-          _results.push(views[k] = function() {
+          views[k] = function() {
             return v;
-          });
+          };
         }
       }
-      return _results;
     };
     context.render = function(name, values) {
       return views[name](values);
     };
     context.get = function(obj) {
-      var k, v, _results;
-      _results = [];
+      var k, v;
       for (k in obj) {
         v = obj[k];
-        _results.push(route(k, v));
+        route(k, v);
       }
-      return _results;
     };
     routes = [];
     route = function(path, next) {
-      return routes.push({
+      routes.push({
         path: path,
         route: function(params, query) {
           var ctx;
@@ -146,7 +138,7 @@
       query = {};
       for (_i = 0, _len = routes.length; _i < _len; _i++) {
         route = routes[_i];
-        if (typeof route.path === string) {
+        if (typeof route.path === 'string') {
           if (route.path === hash) {
             return route.route({}, query);
           }
