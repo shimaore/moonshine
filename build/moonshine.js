@@ -126,7 +126,10 @@
             render: context.render,
             params: params,
             query: query,
-            post: handle_change
+            post: handle_change,
+            redirect: function(fragment) {
+              return window.location.hash = "#" + fragment;
+            }
           };
           return next.apply(ctx);
         }
