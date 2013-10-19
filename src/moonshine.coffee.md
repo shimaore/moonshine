@@ -103,13 +103,8 @@ Route handler
 
       f.apply context
 
-      handle_hash_change = ->
-        url = purl(window.location)
-        fragment = url.fragment
-        query = url.param()
-        handle_change fragment, query
-
-      handle_change = (fragment = '',query = {}) ->
+      handle_change = (fragment,query) ->
+        console.log "Routing to '#{fragment}'"
         for route in routes
           # String
           if typeof route.path is 'string'
@@ -128,6 +123,10 @@ Route handler
               return route.route params, query
 
         return
+
+      handle_hash_change = ->
+        fragment = window.location.hash?.replace(/^#/,'') ? ''
+        handle_change fragment, {}
 
       if window?.onhashchange?
         window.onhashchange handle_hash_change
