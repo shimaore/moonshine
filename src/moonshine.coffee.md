@@ -96,6 +96,8 @@ Route handler
               params: params
               query: query
               post: handle_change # (fragment,query)
+              redirect: (fragment) ->
+                window.location.hash = "##{fragment}"
 
             next.apply ctx
 
