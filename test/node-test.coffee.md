@@ -1,4 +1,4 @@
-    require('./src/moonshine') ->
+    require('../src/moonshine') ->
       @view index: ->
         html ->
           head ->
