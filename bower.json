@@ -13,7 +13,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "coffeecup.js": "https://raw.github.com/gradus/coffeecup/master/lib/coffeecup.js"
-  }
+  "dependencies": {}
 }

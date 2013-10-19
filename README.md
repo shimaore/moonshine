@@ -47,10 +47,6 @@ Install
 
     bower intall moonshine
 
-Moonshine depends on `coffeecup` (client-side) to render `@view`.
-
-Moonshine includes `ccss`, which is used to render `@css`.
-
 Note: jQuery is used in the examples above to locate entities but is not required for moonshine to work.
 
 API (root scope)

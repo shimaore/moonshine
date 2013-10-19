@@ -25,6 +25,9 @@ Also my current pattern for HTML is:
 Main
 ====
 
+    ccss = require './ccss.coffee.md'
+    require 'coffeecup'
+
     @moonshine = (f) ->
 
       helpers = {}
