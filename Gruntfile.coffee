@@ -19,20 +19,20 @@ module.exports = (grunt) ->
           transform: ['coffeeify','debowerify','decomponentify', 'deamdify', 'deglobalify']
           noParse: ['node_modules/coffeecup/lib/coffeecup.js'] # coffeecup conditionally requires stylus
         files:
-          'build/<%= pkg.name %>.js': 'src/loader.js'
+          'dist/<%= pkg.name %>.js': 'src/loader.js'
 
     clean:
-      build: ['lib/', 'build/', 'src/loader.js']
-      all: ['lib/', 'build/', 'node_modules/', 'bower_components/']
+      dist: ['lib/', 'dist/', 'src/loader.js']
+      modules: ['node_modules/', 'bower_components/']
 
     uglify:
-      build:
+      dist:
         files:
           # Uglify creates invalid content ("Syntax Error").
-          'build/<%= pkg.name %>.min.js': 'build/<%= pkg.name %>.js'
+          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
 
   grunt.loadNpmTasks 'grunt-file-creator'
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
-  grunt.registerTask 'default', 'clean:build file-creator:loader browserify'.split ' '
+  grunt.registerTask 'default', 'clean:dist file-creator:loader browserify'.split ' '

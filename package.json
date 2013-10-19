@@ -1,5 +1,6 @@
 {
   "name": "moonshine",
+  "main": "dist/moonshine-common.js",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-browserify": "~1.2.9",
