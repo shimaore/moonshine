@@ -1,6 +1,6 @@
 {
   "name": "moonshine",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": "build/moonshine.js",
   "authors": [
     "Stephane Alnet <stephane@shimaore.net>"
@@ -14,7 +14,6 @@
     "tests"
   ],
   "dependencies": {
-    "coffeecup.js": "https://raw.github.com/gradus/coffeecup/master/lib/coffeecup.js",
-    "purl": "~2.3.1"
+    "coffeecup.js": "https://raw.github.com/gradus/coffeecup/master/lib/coffeecup.js"
   }
 }

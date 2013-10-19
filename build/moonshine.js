@@ -133,21 +133,9 @@
       });
     };
     f.apply(context);
-    handle_hash_change = function() {
-      var fragment, query, url;
-      url = purl(window.location);
-      fragment = url.fragment;
-      query = url.param();
-      return handle_change(fragment, query);
-    };
     handle_change = function(fragment, query) {
       var k, n, params, result, _i, _len, _ref;
-      if (fragment == null) {
-        fragment = '';
-      }
-      if (query == null) {
-        query = {};
-      }
+      console.log("Routing to '" + fragment + "'");
       for (_i = 0, _len = routes.length; _i < _len; _i++) {
         route = routes[_i];
         if (typeof route.path === 'string') {
@@ -172,6 +160,11 @@
           }
         }
       }
+    };
+    handle_hash_change = function() {
+      var fragment, _ref, _ref1;
+      fragment = (_ref = (_ref1 = window.location.hash) != null ? _ref1.replace(/^#/, '') : void 0) != null ? _ref : '';
+      return handle_change(fragment, {});
     };
     if ((typeof window !== "undefined" && window !== null ? window.onhashchange : void 0) != null) {
       window.onhashchange(handle_hash_change);
