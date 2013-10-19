@@ -69,4 +69,6 @@ API (route-handler scope)
 
 `@post route, {query}` re-routes, optionally with new query paramaters.
 
+`@redirect route` re-routes by changing the hash-tag.
+
 `@query` contains the query parameters sent by `@post`, if any.
