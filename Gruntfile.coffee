@@ -10,6 +10,7 @@ module.exports = (grunt) ->
       dist:
         options:
           transform: ['coffeeify']
+          standalone: '<%= pkg.name %>'
         files:
           'dist/<%= pkg.name %>.js': 'src/<%= pkg.name %>.coffee.md'
 
