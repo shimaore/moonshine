@@ -581,13 +581,13 @@ this.ccss.compile = function(rules) {
 
 
 },{}],3:[function(require,module,exports){
-var ccss;
+var ccss, moonshine;
 
 ccss = require('./ccss.coffee.md');
 
 require('../bower_components/coffeecup.js');
 
-this.moonshine = function(f) {
+moonshine = function(f) {
   var context, handle_change, handle_hash_change, helpers, last_hash, monitorHash, route, routes, views;
   helpers = {};
   views = {};
@@ -717,6 +717,14 @@ this.moonshine = function(f) {
   handle_hash_change();
   return context;
 };
+
+if (typeof window !== "undefined" && window !== null) {
+  window.moonshine = moonshine;
+}
+
+if (typeof module !== "undefined" && module !== null) {
+  module.exports = moonshine;
+}
 
 
 },{"../bower_components/coffeecup.js":1,"./ccss.coffee.md":2}]},{},[3])

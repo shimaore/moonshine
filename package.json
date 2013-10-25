@@ -20,7 +20,7 @@
     "test": "cd test && bower install && beefy --open --live .js -- -t coffeeify --noParse node_modules/coffeecup/lib/coffeecup.js"
   },
   "description": "MoonShine =========",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "directories": {
     "test": "test"
   },
