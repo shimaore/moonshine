@@ -1,6 +1,7 @@
 module.exports = (grunt) ->
 
   pkg = grunt.file.readJSON 'package.json'
+  pkg.name = pkg.name.replace /-browserify$/, ''
 
   grunt.initConfig
     pkg: pkg
@@ -9,7 +10,8 @@ module.exports = (grunt) ->
       loader:
         'src/loader.js': (fs,fd,done) ->
           fs.writeSync fd,"""
-            window.#{pkg.name} = require("./#{pkg.name}.coffee.md").#{pkg.name};
+            var pkg = require("./#{pkg.name}.coffee.md");
+            window.#{pkg.name} = pkg.#{pkg.name};
           """
           done()
         'src/common.js': (fs,fd,done) ->
@@ -23,7 +25,7 @@ module.exports = (grunt) ->
       dist:
         options:
           transform: ['coffeeify','debowerify','decomponentify', 'deamdify', 'deglobalify']
-          noParse: ['node_modules/coffeecup/lib/coffeecup.js'] # coffeecup conditionally requires stylus
+          noParse: ['bower_components/coffeecup.js/index.js'] # coffeecup conditionally requires stylus
         files:
           'dist/<%= pkg.name %>.js': 'src/loader.js'
           'dist/<%= pkg.name %>-common.js': 'src/common.js'

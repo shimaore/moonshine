@@ -1,5 +1,5 @@
 {
-  "name": "moonshine",
+  "name": "moonshine-browserify",
   "main": "dist/moonshine-common.js",
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -13,15 +13,14 @@
     "grunt-bower-task": "~0.3.2",
     "grunt-file-creator": "~0.1.1",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-uglify": "~0.2.4",
-    "coffeecup": "~0.3.21"
+    "grunt-contrib-uglify": "~0.2.4"
   },
   "scripts": {
     "prepublish": "bower install && grunt",
     "test": "cd test && bower install && beefy --open --live .js -- -t coffeeify --noParse node_modules/coffeecup/lib/coffeecup.js"
   },
   "description": "MoonShine =========",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "directories": {
     "test": "test"
   },

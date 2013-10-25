@@ -1,6 +1,6 @@
 {
   "name": "moonshine",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "main": "dist/moonshine.js",
   "authors": [
     "Stephane Alnet <stephane@shimaore.net>"
@@ -13,5 +13,8 @@
     "test",
     "tests"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "coffeecup.js": "https://raw.github.com/gradus/coffeecup/master/lib/coffeecup.js"
+  }
 }

@@ -587,7 +587,7 @@ var ccss;
 
 ccss = require('./ccss.coffee.md');
 
-require('coffeecup');
+require('../bower_components/coffeecup.js');
 
 this.moonshine = function(f) {
   var context, handle_change, handle_hash_change, helpers, last_hash, monitorHash, route, routes, views;
@@ -721,5 +721,5 @@ this.moonshine = function(f) {
 };
 
 
-},{"./ccss.coffee.md":2,"coffeecup":1}]},{},[3])
+},{"../bower_components/coffeecup.js":1,"./ccss.coffee.md":2}]},{},[3])
 ;
