@@ -6,32 +6,16 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: pkg
 
-    'file-creator':
-      loader:
-        'src/loader.js': (fs,fd,done) ->
-          fs.writeSync fd,"""
-            var pkg = require("./#{pkg.name}.coffee.md");
-            window.#{pkg.name} = pkg.#{pkg.name};
-          """
-          done()
-        'src/common.js': (fs,fd,done) ->
-          fs.writeSync fd,"""
-            module.exports = require("./#{pkg.name}.coffee.md").#{pkg.name};
-          """
-          done()
-
-
     browserify:
       dist:
         options:
           transform: ['coffeeify','debowerify','decomponentify', 'deamdify', 'deglobalify']
           noParse: ['bower_components/coffeecup.js/index.js'] # coffeecup conditionally requires stylus
         files:
-          'dist/<%= pkg.name %>.js': 'src/loader.js'
-          'dist/<%= pkg.name %>-common.js': 'src/common.js'
+          'dist/<%= pkg.name %>.js': 'src/moonshine.coffee.md'
 
     clean:
-      dist: ['lib/', 'dist/', 'src/loader.js']
+      dist: ['lib/', 'dist/']
       modules: ['node_modules/', 'bower_components/']
 
     uglify:
@@ -40,8 +24,7 @@ module.exports = (grunt) ->
           # Uglify creates invalid content ("Syntax Error").
           'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
 
-  grunt.loadNpmTasks 'grunt-file-creator'
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
-  grunt.registerTask 'default', 'clean:dist file-creator:loader browserify'.split ' '
+  grunt.registerTask 'default', 'clean:dist browserify'.split ' '

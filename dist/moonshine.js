@@ -581,9 +581,6 @@ this.ccss.compile = function(rules) {
 
 
 },{}],3:[function(require,module,exports){
-var pkg = require("./moonshine.coffee.md");
-window.moonshine = pkg.moonshine;
-},{"./moonshine.coffee.md":4}],4:[function(require,module,exports){
 var ccss;
 
 ccss = require('./ccss.coffee.md');
