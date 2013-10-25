@@ -1,6 +1,6 @@
 {
   "name": "moonshine-browserify",
-  "main": "dist/moonshine.js",
+  "main": "dist/moonshine.min.js",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-browserify": "~1.2.9",
@@ -20,7 +20,7 @@
     "test": "cd test && bower install && beefy --open --live .js -- -t coffeeify --noParse node_modules/coffeecup/lib/coffeecup.js"
   },
   "description": "MoonShine",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "directories": {
     "test": "test"
   },

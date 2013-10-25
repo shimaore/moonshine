@@ -27,4 +27,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
-  grunt.registerTask 'default', 'clean:dist browserify'.split ' '
+  grunt.registerTask 'default', 'clean:dist browserify uglify'.split ' '

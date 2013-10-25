@@ -47,6 +47,10 @@ Install
 
     bower intall moonshine
 
+or if using `browserify`
+
+    npm install moonshine-browserify
+
 Note: jQuery is used in the examples above to locate entities but is not required for moonshine to work.
 
 API (root scope)
