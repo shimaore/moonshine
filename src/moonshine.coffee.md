@@ -28,7 +28,7 @@ Main
     ccss = require './ccss.coffee.md'
     require '../bower_components/coffeecup.js'
 
-    @moonshine = (f) ->
+    moonshine = (f) ->
 
       helpers = {}
       views = {}
@@ -147,3 +147,8 @@ Route handler
 
       do handle_hash_change
       return context
+
+    if window?
+      window.moonshine = moonshine
+    if module?
+      module.exports = moonshine

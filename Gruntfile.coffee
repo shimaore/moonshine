@@ -9,10 +9,10 @@ module.exports = (grunt) ->
     browserify:
       dist:
         options:
-          transform: ['coffeeify','debowerify','decomponentify', 'deamdify', 'deglobalify']
+          transform: ['coffeeify']
           noParse: ['bower_components/coffeecup.js/index.js'] # coffeecup conditionally requires stylus
         files:
-          'dist/<%= pkg.name %>.js': 'src/moonshine.coffee.md'
+          'dist/<%= pkg.name %>.js': 'src/<%= pkg.name %>.coffee.md'
 
     clean:
       dist: ['lib/', 'dist/']
