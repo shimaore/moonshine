@@ -1,7 +1,7 @@
 Moonshine
 =========
 
-Moonshine may be used with jQuery, but we use it here to instrument the tests.
+Moonshine may be used without jQuery, but we use it here to instrument the tests.
 
     $(document).ready -> moonshine ->
 

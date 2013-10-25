@@ -17,6 +17,20 @@
     "coffeecup": "~0.3.21"
   },
   "scripts": {
-    "prepublish": "bower install && grunt"
+    "prepublish": "bower install && grunt",
+    "test": "cd test && bower install && beefy --open --live .js -- -t coffeeify --noParse node_modules/coffeecup/lib/coffeecup.js"
+  },
+  "description": "MoonShine =========",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shimaore/moonshine.git"
+  },
+  "author": "Stephane Alnet <stephane@shimaore.net>",
+  "license": "Public Domain",
+  "bugs": {
+    "url": "https://github.com/shimaore/moonshine/issues"
   }
 }

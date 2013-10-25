@@ -12,6 +12,12 @@ module.exports = (grunt) ->
             window.#{pkg.name} = require("./#{pkg.name}.coffee.md").#{pkg.name};
           """
           done()
+        'src/common.js': (fs,fd,done) ->
+          fs.writeSync fd,"""
+            module.exports = require("./#{pkg.name}.coffee.md").#{pkg.name};
+          """
+          done()
+
 
     browserify:
       dist:
@@ -20,6 +26,7 @@ module.exports = (grunt) ->
           noParse: ['node_modules/coffeecup/lib/coffeecup.js'] # coffeecup conditionally requires stylus
         files:
           'dist/<%= pkg.name %>.js': 'src/loader.js'
+          'dist/<%= pkg.name %>-common.js': 'src/common.js'
 
     clean:
       dist: ['lib/', 'dist/', 'src/loader.js']
