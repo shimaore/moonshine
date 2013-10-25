@@ -3,8 +3,8 @@
         object[key] = value
       object
 
-    @ccss = {}
-    @ccss.compile = (rules) ->
+    ccss = {}
+    ccss.compile = (rules) ->
       css = ''
 
       for selector, pairs of rules
@@ -34,6 +34,8 @@
         css += @compile nested
 
       css
+
+    module.exports = ccss
 
 Copyright (c) 2011 James Campos <james.r.campos@gmail.com>
 

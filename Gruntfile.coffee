@@ -10,7 +10,6 @@ module.exports = (grunt) ->
       dist:
         options:
           transform: ['coffeeify']
-          noParse: ['bower_components/coffeecup.js/index.js'] # coffeecup conditionally requires stylus
         files:
           'dist/<%= pkg.name %>.js': 'src/<%= pkg.name %>.coffee.md'
 

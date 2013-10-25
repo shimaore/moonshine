@@ -26,7 +26,7 @@ Main
 ====
 
     ccss = require './ccss.coffee.md'
-    require '../bower_components/coffeecup.js'
+    coffeecup = require './coffeecup.js'
 
     moonshine = (f) ->
 
