@@ -19,8 +19,8 @@
     "prepublish": "bower install && grunt",
     "test": "cd test && bower install && beefy --open --live .js -- -t coffeeify --noParse node_modules/coffeecup/lib/coffeecup.js"
   },
-  "description": "MoonShine =========",
-  "version": "0.6.0",
+  "description": "MoonShine",
+  "version": "0.6.1",
   "directories": {
     "test": "test"
   },
